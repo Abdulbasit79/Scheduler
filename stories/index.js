@@ -8,6 +8,8 @@ import Button from "components/Button";
 import DayListItem from "components/ DayListItem";
 import DayList from "components/ DayList";
 import Appointment from "components/Appointment/index.js";
+import Header from "components/Appointment/Header";
+import Empty from "components/Appointment/empty.js";
 storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
@@ -137,4 +139,8 @@ storiesOf("InterviewerList", module)
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
   .add("Appointment", () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />);
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm" />)
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+
+  

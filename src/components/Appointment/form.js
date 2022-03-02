@@ -1,24 +1,38 @@
 import React from 'react';
 import 'components/InterviewerList.scss';
-import InterviewerListItem from 'components/InterviewerListItem.js';
+import InterviewerList from 'components/InterviewerList.js';
+import Button from "components/Button";
 
-
-export default function InterviewerList(props) {
-  const interviewers = props.interviewers.map(interviewer => {
-    return (
-      <InterviewerListItem
-        key={interviewer.id}
-        name={interviewer.name}
-        avatar={interviewer.avatar}
-        selected={interviewer.id === props.interviewer}
-        setInterviewer={props.setInterviewer}
-      />
-    )
-  })
+export default function form (props) {
+  
   return (
-    <section className="interviewers">
-      <h4 className="interviewers__header text--light">Interviewer</h4>
-      <ul className="interviewers__list">{interviewers}</ul>
+    <main className="appointment__card appointment__card--create">
+  <section className="appointment__card-left">
+    <form autoComplete="off">
+      <input
+        className="appointment__create-input text--semi-bold"
+        name="name"
+        type="text"
+        placeholder="Enter Student Name"
+        /*
+          This must be a controlled component
+          your code goes here
+        */
+      />
+    </form>
+    <InterviewerList 
+      interviewers={props.interviewers}
+    />
+  </section>
+  <section className="appointment__card-right">
+    <section className="appointment__actions">
+      <Button danger onClick = {props.onCancel} >Cancel</Button>
+      <Button confirm >Save</Button>
     </section>
+  </section>
+</main>
+    
+    
+    
   );
 }

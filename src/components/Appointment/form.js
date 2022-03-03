@@ -1,38 +1,57 @@
-import React from 'react';
-import 'components/InterviewerList.scss';
-import InterviewerList from 'components/InterviewerList.js';
-import Button from "components/Button";
+import React, { useState } from 'react';
+import Button from 'components/Button';
+import InterviewerList from 'components/InterviewerList';
 
-export default function form (props) {
+export default function Form(props) {
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+
+
+    
+          
+            
+    
+
+          
+    
+    
+  
+  function reset() {
+    setStudent("");
+    setInterviewer(null);
+  }
+  function cancel() {
+    props.onCancel();
+    reset();
+  }
   
   return (
     <main className="appointment__card appointment__card--create">
-  <section className="appointment__card-left">
-    <form autoComplete="off">
-      <input
-        className="appointment__create-input text--semi-bold"
-        name="name"
-        type="text"
-        placeholder="Enter Student Name"
-        /*
-          This must be a controlled component
-          your code goes here
-        */
+      <section className="appointment__card-left">
+      <form autoComplete="off" onSubmit={event => event.preventDefault()}>
+        <input
+          className="appointment__create-input text--semi-bold"
+          name="name"
+          type="text"
+          placeholder="Enter Student Name"
+          value={student}
+          onChange={event => {
+            setStudent(event.target.value)
+          }}
+        />
+      </form>
+      <InterviewerList 
+        interviewers={props.interviewers} 
+        value={interviewer} 
+        onChange={setInterviewer}
       />
-    </form>
-    <InterviewerList 
-      interviewers={props.interviewers}
-    />
-  </section>
-  <section className="appointment__card-right">
-    <section className="appointment__actions">
-      <Button danger onClick = {props.onCancel} >Cancel</Button>
-      <Button confirm >Save</Button>
-    </section>
-  </section>
-</main>
-    
-    
-    
-  );
+      </section>
+      <section className="appointment__card-right">
+        <section className="appointment__actions">
+          <Button danger onClick={() => cancel()}>Cancel</Button>
+          <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
+        </section>
+      </section>
+    </main>
+  )
 }

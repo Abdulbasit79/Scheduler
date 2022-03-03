@@ -4,29 +4,64 @@ import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/empty.js";
 import Show from "components/Appointment/show.js";
 import Form from "components/Appointment/form.js";
+import Status from "components/Appointment/status.js";
+import Confirm from 'components/Appointment/confim.js';
 import useVisualMode from "components/hooks/useVisualMode.js";
 
 export default function Appointment(props) {
+  console.log("index test", props.student)
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE =  "CREATE";
-  const interviewers = [];
+  const SAVING = "SAVING";
+  const DELETING = "DELETING";
+  const CONFIRM = "CONFIRM";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
+
+    
   );
+  function save(student, interviewer) {
+    const interview = {
+      student: student,
+      interviewer
+    };
+    
+    transition(SAVING);
+    props.bookInterview(props.id, interview).then(() => {
+      transition(SHOW);
+    })
+  }
+
+  const cancel = () => {
+    transition(CONFIRM);
+  }
+
+  function confirmDelete() {
+    transition(DELETING);
+    props.cancelInterview(props.id)
+      .then(() => {
+        transition(EMPTY)
+      })
+  }
 
   return (
   <article className="appointment">
     <Header time={props.time} />
-    {mode === EMPTY && <Empty onAdd={() => {transition(CREATE)}} />}
+
+    {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
     {mode === SHOW && (
       <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+        onDelete={cancel}
       />
     )}
-    {mode === CREATE && <Form interviewers = {interviewers} onCancel={back}/>}
+    {mode === CREATE && <Form interviewers = {props.interviewers} onCancel={() => back(EMPTY)} onSave={save} />}
+    {mode === SAVING && <Status message = "Saving" />}
+    {mode === DELETING && <Status message = "Deleting" />}
+    {mode === CONFIRM && <Confirm message = "Are you sure you want to delete this appointment?" onConfirm = {confirmDelete} onCancel = {() => transition(SHOW)} />}
   </article>
   );
 }

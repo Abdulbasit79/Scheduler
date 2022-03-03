@@ -37,8 +37,26 @@ export default function Application(props) {
     const interview = getInterview(state, appointment.interview);
     const interviewersForDay = getInterviewersForDay(state, state.day);
     console.log(appointment)
+    function cancelInterview(id) {
+      const appointment = {
+        ...state.appointments[id],
+        interview: null
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      }
+      return axios.delete(`/api/appointments/${id}`, appointment)
+        .then(() => {
+          setState({
+            ...state,
+            appointments
+          });
+        })
+    }
+    
     return (
-      <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewersForDay}/>
+      <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={interview} interviewers={interviewersForDay} cancelInterview ={cancelInterview}/>
     
 
     );

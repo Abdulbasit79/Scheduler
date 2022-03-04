@@ -1,6 +1,5 @@
-["screenshot of adding mainpage"] public/images/main page.png/https://github.com/Abdulbasit79/Scheduler/public/images/main%20page.png
-["screenshot of adding appointment"] public/images/add appointment.png/https://github.com/Abdulbasit79/Scheduler/public/images/add%20appointment.png
-
+["screenshot of adding mainpage"] (https://github.com/Abdulbasit79/Scheduler/blob/master/public/images/mainpage.png?raw=true)
+["screenshot of adding appointment"] (https://github.com/Abdulbasit79/Scheduler/blob/master/public/images/add%20appointment.png?raw=true)
 
 
 # Interview Scheduler

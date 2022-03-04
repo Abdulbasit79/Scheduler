@@ -1,3 +1,8 @@
+["screenshot of adding mainpage"] https://github.com/Abdulbasit79/Scheduler/commit/3e0596483b35ec5e15cdded0a306a04c7057e153
+["screenshot of adding appointment"] https://github.com/Abdulbasit79/Scheduler/blob/master/public/images/add%20appointment.png
+
+
+
 # Interview Scheduler
 
 ## Setup
